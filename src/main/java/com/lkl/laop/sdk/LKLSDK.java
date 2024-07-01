@@ -5,6 +5,7 @@ import com.lkl.laop.sdk.exception.SDKException;
 import com.lkl.laop.sdk.exception.SDKExceptionEnums;
 import com.lkl.laop.sdk.notification.NotificationHandler;
 import com.lkl.laop.sdk.request.LklRequest;
+import com.lkl.laop.sdk.request.ext.ExtLklRequest;
 import com.lkl.laop.sdk.utils.FileUtils;
 import com.lkl.laop.sdk.utils.PemUtil;
 import com.lkl.laop.sdk.utils.SM4Util;
@@ -215,6 +216,12 @@ public class LKLSDK implements AutoCloseable {
         return httpPost(sdkServerUrl + url, body);
     }
 
+    public static String httpPost(ExtLklRequest request) throws SDKException {
+        var fCode = request.getExtFunctionCode();
+        String url = fCode.getUrl();
+        String body = request.toBody();
+        return httpPost(sdkServerUrl + url, body);
+    }
 
     /**
      * SDK post 请求
